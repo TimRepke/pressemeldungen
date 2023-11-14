@@ -45,5 +45,6 @@ class BMWKSpider(Spider):
             'descriptor': head.css('p.topline > span.topline-descriptor::text').get().strip(),
             'tag': tag.strip() if tag is not None else None,
             'title': head.css('.title::text').get().strip(),
-            'text': ' '.join(content.css('div.content ::text').getall()).strip()
+            'text': ' '.join(content.css('div.content ::text').getall()).strip(),
+            'link': response.request.url
         }

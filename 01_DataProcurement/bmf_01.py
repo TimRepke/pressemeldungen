@@ -13,7 +13,9 @@ class BMFSpider(Spider):
     name = 'bmf'
     start_urls = [
         ('https://www.bundesfinanzministerium.de/Web/DE/Presse/Pressemitteilungen/pressemitteilungen.html'
-         '?gts=%25260d98ed53-72cb-49a5-a190-6fbf6c483869_list%253DdateOfIssue_dt%252Basc')
+         '?gts=%25260d98ed53-72cb-49a5-a190-6fbf6c483869_list%253DdateOfIssue_dt%252Basc'),
+        ('https://www.bundesfinanzministerium.de/Web/DE/Presse/Pressemitteilungen/Pressemitteilungen-Archiv/'
+         'pressemitteilungen-archiv.html?gts=%25264f02cb35-a846-493a-88ee-33d14ded5a55_list%253DdateOfIssue_dt%252Basc')
     ]
 
     def start_requests(self) -> Iterable[Request]:
@@ -38,5 +40,6 @@ class BMFSpider(Spider):
             'descriptor': None,
             'tag': content.css('p.dachzeile::text').get().strip(),
             'title': content.css('div.article-header h1::text').get().strip(),
-            'text': ' '.join(content.css('div.article-text ::text').getall()).strip()
+            'text': ' '.join(content.css('div.article-text ::text').getall()).strip(),
+            'link': response.request.url
         }
