@@ -39,8 +39,8 @@ class AASpider(Spider):
 
     def parse_article(self, response: Response, **kwargs: Any):
         logger.debug(f'Parsing article page: {response.request.url}')
-        head = response.css('#main header')
         content = response.css('#main')
+        head = response.css('#main header')
 
         date = None
         desc = None
@@ -55,8 +55,8 @@ class AASpider(Spider):
             'date': date,
             'descriptor': desc,
             'tags': get_list(content, 'section.u-section ul.link-list__list a.link-list__link::attr("title")'),
-            'title': get_all_stripped(head, 'h1.heading__title::text'),
-            'teaser': get_stripped(head, 'p.heading__intro::text'),
-            'text': get_all_stripped(content, 'div.c-rte--default::text'),
+            'title': get_all_stripped(head, 'h1.heading__title *::text'),
+            'teaser': get_stripped(head, 'p.heading__intro *::text'),
+            'text': get_all_stripped(content, 'div.c-rte--default *::text'),
             'link': response.request.url
         }
