@@ -1,3 +1,4 @@
 httpx[http2]==0.25.1
 pydantic==2.5.0
 scrapy==2.11.0
+pandas==2.1.4
