@@ -41,6 +41,6 @@ class BMDVSpider(Spider):
             'tags': get_list(content, '.content-meta-info p.format::text'),
             'title': get_all_stripped(content, 'h1.headline-title *::text'),
             'teaser': get_all_stripped(content, 'h1.headline-subtitle *::text'),
-            'text': get_all_stripped(content, 'div.main-content .content *::text'),
+            'text': get_all_stripped(content, 'div.main-content .content *::text', join_on='\n'),
             'link': response.request.url
         }

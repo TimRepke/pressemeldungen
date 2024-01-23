@@ -77,6 +77,6 @@ class BundesregierungSpider(Spider):
             'tags': None,
             'title': get_all_stripped(content, '.bpa-teaser-title-text *::text'),
             'teaser': get_all_stripped(content, '.bpa-short-text p:not([class]) *::text'),
-            'text': get_all_stripped(content, '.bpa-article *::text'),
+            'text': get_all_stripped(content, '.bpa-article *::text', join_on='\n'),
             'link': response.request.url
         }

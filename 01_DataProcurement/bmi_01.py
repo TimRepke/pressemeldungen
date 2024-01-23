@@ -52,6 +52,6 @@ class BMISpider(Spider):
                 'div.c-content-article > h1'
             ]),
             'teaser': get_stripped(content, 'p.c-content-stage__p::text'),
-            'text': ' '.join(content.css('*:not(.c-content-stage)::text').getall()).strip(),
+            'text': '\n'.join(content.css('*:not(.c-content-stage)::text').getall()).strip(),
             'link': response.request.url
         }

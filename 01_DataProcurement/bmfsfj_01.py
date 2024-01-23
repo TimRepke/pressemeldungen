@@ -50,6 +50,6 @@ class BMFSFJSpider(Spider):
             'descriptor': get_all_stripped(content, '.article-intro .dateline::text'),
             'title': get_all_stripped(content, '.article-intro .title__text *::text'),
             'teaser': get_all_stripped(content, '.article-intro .article-teaser *::text'),
-            'text': get_all_stripped(content, '.article-content *::text'),
+            'text': get_all_stripped(content, '.article-content *::text', join_on='\n'),
             'link': response.request.url
         }

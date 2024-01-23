@@ -39,6 +39,6 @@ class BMASSpider(Spider):
             'title': get_all_stripped(content, 'article h1[data-slot="pp-headline"] *::text'),
             'teaser': get_all_stripped(content, 'article div[data-slot="pp-text"] *::text'),
             'tags': get_list(content, 'pp-document-tags pp-tag pp-link > div::text'),
-            'text': get_all_stripped(content, 'article div.body-text *::text'),
+            'text': get_all_stripped(content, 'article div.body-text *::text', join_on='\n'),
             'link': response.request.url
         }

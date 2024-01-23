@@ -51,6 +51,7 @@ class BMUVSpider(Spider):
             'tags': [topic] if topic is not None else None,
             'title': get_all_stripped(content, '.c-hero h1 *::text'),
             'teaser': get_all_stripped(content, '[itemprop="articleBody"] h2 *::text'),
-            'text': get_all_stripped(content, '[itemprop="articleBody"] div[itemprop="description"] *::text'),
+            'text': get_all_stripped(content, '[itemprop="articleBody"] div[itemprop="description"] *::text',
+                                     join_on='\n'),
             'link': response.request.url
         }

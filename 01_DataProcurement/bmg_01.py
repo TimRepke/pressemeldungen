@@ -41,6 +41,6 @@ class BMGSpider(Spider):
             'teaser': get_all_stripped(content, '.c-page-title p *::text'),
             'text': get_all_stripped(content, '.c-component--content .c-text *::text, '
                                               '.c-component--content .c-quote *::text, '
-                                              '.c-component--content .c-text-media *::text'),
+                                              '.c-component--content .c-text-media *::text', join_on='\n'),
             'link': response.request.url
         }

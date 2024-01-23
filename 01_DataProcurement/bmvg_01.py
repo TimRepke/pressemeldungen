@@ -52,7 +52,7 @@ class BMVGSpider(Spider):
                 'date': dt[:10] if dt is not None else None,
                 'descriptor': get_all_stripped(content, '.content-header__headline-label *::text'),
                 'title': get_all_stripped(content, 'h1.content-header__headline-text *::text'),
-                'text': get_all_stripped(content, '.section__content *::text'),
+                'text': get_all_stripped(content, '.section__content *::text', join_on='\n'),
                 'link': response.request.url
             }
         except NotSupported as e:

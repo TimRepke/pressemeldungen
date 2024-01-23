@@ -57,6 +57,6 @@ class AASpider(Spider):
             'tags': get_list(content, 'section.u-section ul.link-list__list a.link-list__link::attr("title")'),
             'title': get_all_stripped(head, 'h1.heading__title *::text'),
             'teaser': get_stripped(head, 'p.heading__intro *::text'),
-            'text': get_all_stripped(content, 'div.c-rte--default *::text'),
+            'text': get_all_stripped(content, 'div.c-rte--default *::text', join_on='\n'),
             'link': response.request.url
         }

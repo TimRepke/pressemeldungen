@@ -43,6 +43,6 @@ class BMJSpider(Spider):
             'descriptor': 'Pressemitteilung',
             'title': get_all_stripped(content, 'h1.c-page-intro__headline *::text'),
             'teaser': get_all_stripped(content, '.c-page-intro__text *::text'),
-            'text': get_all_stripped(content, '.s-richtext *::text'),
+            'text': get_all_stripped(content, '.s-richtext *::text', join_on='\n'),
             'link': response.request.url
         }

@@ -47,6 +47,6 @@ class BMWSBSpider(Spider):
             'tags': get_list(content, '.c-content-stage__theme::text'),
             'title': get_all_stripped(content, 'h1.c-content-stage__headline *::text'),
             'teaser': get_all_stripped(content, 'p.c-content-stage__p *::text'),
-            'text': get_all_stripped(content, '.c-content-article > p *::text'),
+            'text': get_all_stripped(content, '.c-content-article > p *::text', join_on='\n'),
             'link': response.request.url
         }

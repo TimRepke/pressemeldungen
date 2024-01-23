@@ -44,6 +44,6 @@ class BMELSpider(Spider):
             'tags': get_list(content, '.c-content-stage__theme::text'),
             'title': get_all_stripped(content, 'h1.c-intro__headline *::text'),
             'teaser': get_all_stripped(content, 'div.c-intro__text *::text'),
-            'text': get_all_stripped(content, '#content p *::text'),
+            'text': get_all_stripped(content, '#content p *::text', join_on='\n'),
             'link': response.request.url
         }

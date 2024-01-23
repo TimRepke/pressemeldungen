@@ -40,6 +40,6 @@ class BMFSpider(Spider):
             'descriptor': None,
             'tag': content.css('p.dachzeile::text').get().strip(),
             'title': content.css('div.article-header h1::text').get().strip(),
-            'text': ' '.join(content.css('div.article-text ::text').getall()).strip(),
+            'text': '\n'.join(content.css('div.article-text ::text').getall()).strip(),
             'link': response.request.url
         }
