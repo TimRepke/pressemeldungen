@@ -18,9 +18,7 @@ $ python -m scrapy runspider reg_01.py -o ../data/raw/articles_reg.jsonl
 $ python -m scrapy runspider bmj_01.py -o ../data/raw/articles_bmj.jsonl
 $ python -m scrapy runspider bmas_01.py -o ../data/raw/articles_bmas.jsonl
 $ python -m scrapy runspider bmvg_01.py -o ../data/raw/articles_bmvg.jsonl
-
-BMFSJF
-https://www.bmfsfj.de/bmfsfj/aktuelles/presse/pressemitteilungen/106404!search?state=H4sIAAAAAAAAAFWOPQ-CMBCG_4q5uQNEg9DNoMyYsBmGBg5tUltsD78I_91SHWS797mvZ4RWEBbWXIHrQSkWcmX-09yt8EnLiX8yONw9hG33vgO8E8phgIc7alrAXgmpC6kI7XFAK9EBP9UMOtEg-XqE9TbbpB5CnCZJFkE9MbhIciXaUpz9pThicPO7L-AADN6yz02L3-CM9VLBcNWiayBozAa50Y6sf04_l-kDs-ug0_sAAAA%3D&hitsPerPage=20#search106404
+$ python -m scrapy runspider bmfsfj_01.py -o ../data/raw/articles_bmfsfj.jsonl
 
 BMG
 https://www.bundesgesundheitsministerium.de/presse/pressemitteilungen.html
