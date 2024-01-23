@@ -7,7 +7,9 @@ files = Path().glob(pattern='../data/raw/*')
 OUTPUT_DIR = Path('../data/texts')
 REGEX = re.compile(r'articles_(.+)\.jsonl')
 
-sstrs = ['klima', 'klimawandel', 'klimaschutz']
+sstrs = [re.compile(r'\bklima\b', flags=re.IGNORECASE),
+         re.compile(r'\bklimawandel\b', flags=re.IGNORECASE),
+         re.compile(r'\bklimaschutz\b', flags=re.IGNORECASE)]
 
 log = []
 
@@ -23,13 +25,14 @@ for file in files:
                 'ministry': ministry,
                 'li': li,
                 'date': obj['date'],
+                'descriptor': obj['descriptor'],
                 'title': obj['title'],
                 'file': str(out_file),
                 'src': fname,
                 **{
-                    f'contains_{ss}': 'x' if ss in (obj.get('text') or '').lower()
-                                             or ss in (obj.get('teaser') or '').lower()
-                                             or ss in (obj.get('title') or '').lower() else ''
+                    f'contains_{ss.pattern}': 'x' if ss.search(obj.get('text') or '')
+                                             or ss.search(obj.get('teaser') or '')
+                                             or ss.search(obj.get('title') or '') else ''
                     for ss in sstrs
                 }
             })
