@@ -15,7 +15,9 @@ class BundesregierungSpider(Spider):
     name = 'bundesregierung'
     custom_settings = {
         'USER_AGENT': 'Mozilla/5.0 (iPad; CPU OS 12_2 like Mac OS X) '
-                      'AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148'
+                      'AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148',
+        'DOWNLOAD_DELAY': 0.25,
+        'RANDOMIZE_DOWNLOAD_DELAY': True
     }
 
     # start_urls = [

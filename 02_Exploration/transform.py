@@ -26,7 +26,7 @@ for file in files:
                 'ministry': ministry,
                 'li': li,
                 'date': obj['date'],
-                'descriptor': obj['descriptor'],
+                'descriptor': obj.get('descriptor', 'Pressemitteilung'),
                 'title': obj['title'],
                 'file': str(out_file),
                 'src': fname,
