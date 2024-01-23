@@ -1,0 +1,20 @@
+OUTPUT_FOLDER='../data/raw'
+
+python -m scrapy runspider aa_01.py -o "${OUTPUT_FOLDER}/articles_aa.jsonl"
+python -m scrapy runspider bmdv_01.py -o "${OUTPUT_FOLDER}/articles_bmdv.jsnl"
+python -m scrapy runspider bmel_01.py -o "${OUTPUT_FOLDER}/articles_bmel.jsonl"
+python -m scrapy runspider bmf_01.py -o "${OUTPUT_FOLDER}/articles_bmf.jsonl"
+python -m scrapy runspider bmi_01.py -o "${OUTPUT_FOLDER}/articles_bmi.jsonl"
+python -m scrapy runspider bmuv_01.py -o "${OUTPUT_FOLDER}/articles_bmuv_archive.jsonl"
+python -m scrapy runspider bmuv_02.py -o "${OUTPUT_FOLDER}/articles_bmuv_current.jsonl"
+python -m scrapy runspider bmwk_01.py -o "${OUTPUT_FOLDER}/articles_bmwk.jsonl"
+python -m scrapy runspider bmwsb_01.py -o "${OUTPUT_FOLDER}/articles_bmwsb.jsonl"
+python -m scrapy runspider reg_01.py -o "${OUTPUT_FOLDER}/articles_reg.jsonl"
+python -m scrapy runspider bmj_01.py -o "${OUTPUT_FOLDER}/articles_bmj.jsonl"
+python -m scrapy runspider bmas_01.py -o "${OUTPUT_FOLDER}/articles_bmas.jsonl"
+python -m scrapy runspider bmvg_01.py -o "${OUTPUT_FOLDER}/articles_bmvg.jsonl"
+python -m scrapy runspider bmfsfj_01.py -o "${OUTPUT_FOLDER}/articles_bmfsfj.jsonl"
+python -m scrapy runspider bmg_01.py -o "${OUTPUT_FOLDER}/articles_bmg.jsonl"
+python -m scrapy runspider bmbf_01.py -o "${OUTPUT_FOLDER}/articles_bmbf.jsonl"
+
+echo "All done!"
