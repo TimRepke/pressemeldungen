@@ -1,7 +1,7 @@
-def get_all_stripped(node, query: str) -> str | None:
+def get_all_stripped(node, query: str, join_on: str = ' ') -> str | None:
     lst = get_list(node, query)
     if lst is not None and len(lst) > 0:
-        return ' '.join(lst)
+        return join_on.join(lst)
     return None
 
 

@@ -20,9 +20,7 @@ $ python -m scrapy runspider bmas_01.py -o ../data/raw/articles_bmas.jsonl
 $ python -m scrapy runspider bmvg_01.py -o ../data/raw/articles_bmvg.jsonl
 $ python -m scrapy runspider bmfsfj_01.py -o ../data/raw/articles_bmfsfj.jsonl
 $ python -m scrapy runspider bmg_01.py -o ../data/raw/articles_bmg.jsonl
-
-BMBF
-https://www.bmbf.de/SiteGlobals/Forms/bmbf/suche/pressemitteilungen/Pressemitteilungensuche_Formular.html?gtp=33424_list%253D33&resultsPerPage=50#searchResults
+$ python -m scrapy runspider bmbf_01.py -o ../data/raw/articles_bmbf.jsonl
 
 BMZ
 https://www.bmz.de/de/aktuelles/aktuelle-meldungen
