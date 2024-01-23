@@ -16,9 +16,7 @@ $ python -m scrapy runspider bmwk_01.py -o ../data/raw/articles_bmwk.jsonl
 $ python -m scrapy runspider bmwsb_01.py -o ../data/raw/articles_bmwsb.jsonl
 $ python -m scrapy runspider reg_01.py -o ../data/raw/articles_reg.jsonl
 $ python -m scrapy runspider bmj_01.py -o ../data/raw/articles_bmj.jsonl
-
-BMAS
-https://www.bmas.de/SiteGlobals/Forms/Suche/Aktuelles-Suche_Formular.html?dateOfIssue_dt=2020-12-31T23%3A00%3A00Z+2021-12-31T23%3A00%3A00Z+2022-12-31T23%3A00%3A00Z&documentType_=pressrelease&showNoGesetzesstatus=true&showNoStatus=true
+$ python -m scrapy runspider bmas_01.py -o ../data/raw/articles_bmas.jsonl
 
 BMVg
 https://www.bmvg.de/de/presse/alle-pressetermine-pressemitteilungen-bmvg
