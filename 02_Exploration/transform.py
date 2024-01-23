@@ -7,7 +7,8 @@ files = Path().glob(pattern='../data/raw/*')
 OUTPUT_DIR = Path('../data/texts')
 REGEX = re.compile(r'articles_(.+)\.jsonl')
 
-sstrs = [re.compile(r'\bklima\b', flags=re.IGNORECASE),
+sstrs = [re.compile(r'klima', flags=re.IGNORECASE),
+         re.compile(r'\bklima\b', flags=re.IGNORECASE),
          re.compile(r'\bklimawandel\b', flags=re.IGNORECASE),
          re.compile(r'\bklimaschutz\b', flags=re.IGNORECASE)]
 
