@@ -16,5 +16,7 @@ python -m scrapy runspider bmvg_01.py -o "${OUTPUT_FOLDER}/articles_bmvg.jsonl"
 python -m scrapy runspider bmfsfj_01.py -o "${OUTPUT_FOLDER}/articles_bmfsfj.jsonl"
 python -m scrapy runspider bmg_01.py -o "${OUTPUT_FOLDER}/articles_bmg.jsonl"
 python -m scrapy runspider bmbf_01.py -o "${OUTPUT_FOLDER}/articles_bmbf.jsonl"
+python -m scrapy runspider bmz_01.py -o "${OUTPUT_FOLDER}/articles_bmz_current.jsonl"
+python -m scrapy runspider bmz_02.py -o "${OUTPUT_FOLDER}/articles_bmz_archive.jsonl"
 
 echo "All done!"

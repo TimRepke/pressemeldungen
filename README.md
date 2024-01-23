@@ -21,8 +21,6 @@ $ python -m scrapy runspider bmvg_01.py -o ../data/raw/articles_bmvg.jsonl
 $ python -m scrapy runspider bmfsfj_01.py -o ../data/raw/articles_bmfsfj.jsonl
 $ python -m scrapy runspider bmg_01.py -o ../data/raw/articles_bmg.jsonl
 $ python -m scrapy runspider bmbf_01.py -o ../data/raw/articles_bmbf.jsonl
-
-BMZ
-https://www.bmz.de/de/aktuelles/aktuelle-meldungen
-https://www.bmz.de/de/aktuelles/archiv-aktuelle-meldungen
+$ python -m scrapy runspider bmz_01.py -o ../data/raw/articles_bmz_current.jsonl
+$ python -m scrapy runspider bmz_02.py -o ../data/raw/articles_bmz_archive.jsonl
 ```
