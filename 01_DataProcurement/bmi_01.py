@@ -4,7 +4,7 @@ from typing import Any, Iterable
 from scrapy import Request, Spider
 from scrapy.http import Response
 
-from util import get_stripped, get_any
+from util import get_stripped, get_any, get_all_stripped
 
 logger = logging.getLogger('bmi')
 BASE_URL = 'https://www.bmi.bund.de/'
@@ -52,6 +52,6 @@ class BMISpider(Spider):
                 'div.c-content-article > h1'
             ]),
             'teaser': get_stripped(content, 'p.c-content-stage__p::text'),
-            'text': '\n'.join(content.css('*:not(.c-content-stage)::text').getall()).strip(),
+            'text': get_all_stripped(content, '*:not(.c-content-stage)::text', join_on='\n'),
             'link': response.request.url
         }

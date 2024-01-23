@@ -3,6 +3,7 @@ from typing import Any, Iterable
 
 from scrapy import Request, Spider
 from scrapy.http import Response
+from util import get_stripped, get_any, get_all_stripped
 
 logger = logging.getLogger('bmwk')
 
@@ -39,12 +40,11 @@ class BMWKSpider(Spider):
         logger.debug(f'Parsing article page: {response.request.url}')
         head = response.css('main#main > div.main-head')
         content = response.css('main#main > div.main-content')
-        tag = head.css('p.topline a.tag span::text').get()
         yield {
-            'date': head.css('p.topline > span.date::text').get().strip(),
-            'descriptor': head.css('p.topline > span.topline-descriptor::text').get().strip(),
-            'tag': tag.strip() if tag is not None else None,
-            'title': head.css('.title::text').get().strip(),
-            'text': '\n'.join(content.css('div.content ::text').getall()).strip(),
+            'date': get_stripped(head, 'p.topline > span.date::text'),
+            'descriptor': get_stripped(head, 'p.topline > span.topline-descriptor::text'),
+            'tag': get_stripped(head, 'p.topline a.tag span::text'),
+            'title': get_stripped(head, '.title::text'),
+            'text': get_all_stripped(content, 'div.content ::text', join_on='\n'),
             'link': response.request.url
         }
