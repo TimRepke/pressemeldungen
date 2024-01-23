@@ -9,15 +9,13 @@ from util import get_stripped, get_all_stripped, get_list
 logger = logging.getLogger('bmdv')
 
 BASE_URL = 'https://bmdv.bund.de'
-LIST_URL = (f'{BASE_URL}/SiteGlobals/Forms/Listen/DE/BMVI-Aktuell/BMVI-Aktuell_Formular.html'
-            f'?resourceId=14470&input_=212876&pageLocale=de&templateQueryString=&cl2Categories_Themen='
-            f'&cl2Categories_Themen.GROUP=1&documentType_=PressRelease&documentType_.GROUP=1'
-            f'&submit=Ergebnisse+filtern&selectSort=commonSortDate_dt+asc&selectSort.GROUP=1')
+
 
 
 class BMDVSpider(Spider):
     name = 'bmdv'
-    start_urls = [LIST_URL]
+    start_urls = [f'{BASE_URL}/SiteGlobals/Forms/Suche/DE/Expertensuche_Formular.html?documentType_=PressRelease',
+                  f'{BASE_URL}/SiteGlobals/Forms/Suche/DE/Expertensuche_Formular.html?documentType_=Basepage']
 
     def start_requests(self) -> Iterable[Request]:
         for url in self.start_urls:
