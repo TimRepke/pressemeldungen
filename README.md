@@ -19,9 +19,7 @@ $ python -m scrapy runspider bmj_01.py -o ../data/raw/articles_bmj.jsonl
 $ python -m scrapy runspider bmas_01.py -o ../data/raw/articles_bmas.jsonl
 $ python -m scrapy runspider bmvg_01.py -o ../data/raw/articles_bmvg.jsonl
 $ python -m scrapy runspider bmfsfj_01.py -o ../data/raw/articles_bmfsfj.jsonl
-
-BMG
-https://www.bundesgesundheitsministerium.de/presse/pressemitteilungen.html
+$ python -m scrapy runspider bmg_01.py -o ../data/raw/articles_bmg.jsonl
 
 BMBF
 https://www.bmbf.de/SiteGlobals/Forms/bmbf/suche/pressemitteilungen/Pressemitteilungensuche_Formular.html?gtp=33424_list%253D33&resultsPerPage=50#searchResults
