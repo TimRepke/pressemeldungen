@@ -21,7 +21,7 @@ for file in files:
         (OUTPUT_DIR / ministry).mkdir(exist_ok=True, parents=True)
         for li, line in enumerate(f):
             obj = json.loads(line)
-            out_file = OUTPUT_DIR / ministry / f'{li:04}.txt'
+            out_file = OUTPUT_DIR / ministry / f'{ministry}_{li:04}.txt'
             log.append({
                 'ministry': ministry,
                 'li': li,

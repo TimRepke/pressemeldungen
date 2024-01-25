@@ -18,9 +18,11 @@ HEADERS = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:48.0) Gecko/2010010
 class BMZSpider(Spider):
     name = 'bmz'
     custom_settings = {
-        'USER_AGENT': 'Mozilla/5.0 (iPad; CPU OS 12_2 like Mac OS X) '
-                      'AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148',
-        'DOWNLOAD_DELAY': 0.25,
+        'USER_AGENT': 'Mozilla/5.0 (X11; Linux x86_64) '
+                      'AppleWebKit/537.36 (KHTML, like Gecko) '
+                      'Chrome/119.0.0.0 '
+                      'Safari/537.36',
+        'DOWNLOAD_DELAY': 1,
         'RANDOMIZE_DOWNLOAD_DELAY': True
     }
     start_urls = [f'{AJAX_URL}&year={year}&month={month}'

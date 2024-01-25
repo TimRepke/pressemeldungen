@@ -14,9 +14,11 @@ BASE_URL = 'https://www.bundesregierung.de'
 class BundesregierungSpider(Spider):
     name = 'bundesregierung'
     custom_settings = {
-        'USER_AGENT': 'Mozilla/5.0 (iPad; CPU OS 12_2 like Mac OS X) '
-                      'AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148',
-        'DOWNLOAD_DELAY': 0.25,
+        'USER_AGENT': 'Mozilla/5.0 (X11; Linux x86_64) '
+                      'AppleWebKit/537.36 (KHTML, like Gecko) '
+                      'Chrome/119.0.0.0 '
+                      'Safari/537.36',
+        'DOWNLOAD_DELAY': 1,
         'RANDOMIZE_DOWNLOAD_DELAY': True
     }
 
