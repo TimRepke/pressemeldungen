@@ -24,3 +24,11 @@ $ python -m scrapy runspider bmbf_01.py -o ../data/raw/articles_bmbf.jsonl
 $ python -m scrapy runspider bmz_01.py -o ../data/raw/articles_bmz_current.jsonl
 $ python -m scrapy runspider bmz_02.py -o ../data/raw/articles_bmz_archive.jsonl
 ```
+
+Transform data:
+```
+python 02_Exploration/transform.py
+
+# package
+tar czvf texts.tar.gz data/texts/*
+```

@@ -121,13 +121,17 @@ DT_FORMATS = [
     (re.compile(r'\d{1,2}\.\s+\w+\s+\d{4}'), fmt3),
     (re.compile(r'\d{5}'), lambda x: None)
 ]
-DROP = re.compile(r'Stand:|in \w+(/\w+)?|(Montag|Dienstag|Mittwoch|Donnerstag|Freitag|Sonnabend|Samstag|Sonntag),')
+DROP = re.compile(r'Stand:'
+                  r'|in([ /-]+\w+)+'
+                  r'|in -+'
+                  r'|\d{1,2}:\d{2} Uhr'
+                  r'|(Montag|Dienstag|Mittwoch|Donnerstag|Freitag|Sonnabend|Samstag|Sonntag)')
 
 
 def transform_dt(x):
     if x is None:
         return None
-    dt = DROP.sub('', x).strip()
+    dt = DROP.sub('', x.replace(',', '')).strip()
     for fmt, trans in DT_FORMATS:
         if fmt.match(dt):
             return trans(dt)
