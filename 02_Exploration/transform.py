@@ -78,6 +78,7 @@ for ministry, file in stock_files:
             'src': str(file),
             **{
                 f'contains_{ss.pattern}': 'x' if ss.search(obj.get('text') or '')
+                                                 or ss.search(obj.get('full_text') or '')
                                                  or ss.search(obj.get('teaser') or '')
                                                  or ss.search(obj.get('title') or '') else ''
                 for ss in sstrs
@@ -92,7 +93,7 @@ for ministry, file in stock_files:
             fout.write((obj.get('title') or '[title missing]') + '\n')
             fout.write((obj.get('teaser') or '[teaser missing]') + '\n')
             fout.write('----------------\n')
-            fout.write((obj.get('text') or '[text missing]'))
+            fout.write((obj.get('full_text') or '[text missing]'))
 
 locale.setlocale(locale.LC_ALL, 'de_DE.UTF-8')
 
