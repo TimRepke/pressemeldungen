@@ -20,7 +20,8 @@ REGEX = re.compile(r'articles_(.+)\.jsonl')
 sstrs = [re.compile(r'klima', flags=re.IGNORECASE),
          re.compile(r'\bklima\b', flags=re.IGNORECASE),
          re.compile(r'\bklimawandel\b', flags=re.IGNORECASE),
-         re.compile(r'\bklimaschutz\b', flags=re.IGNORECASE)]
+         re.compile(r'\bklimaschutz\b', flags=re.IGNORECASE),
+         re.compile(r'\bumwelt\b', flags=re.IGNORECASE)]
 
 log = []
 
@@ -41,6 +42,7 @@ for file in files:
                 'descriptor': obj.get('descriptor', 'Pressemitteilung'),
                 'title': obj['title'],
                 'file': str(out_file),
+                'url': obj.get('link'),
                 'src': fname,
                 **{
                     f'contains_{ss.pattern}': 'x' if ss.search(obj.get('text') or '')
@@ -74,6 +76,7 @@ for ministry, file in stock_files:
             'raw_date': obj['date'],
             'descriptor': obj.get('descriptor', 'Pressemitteilung'),
             'title': obj['title'],
+            'url': obj.get('link'),
             'file': str(out_file),
             'src': str(file),
             **{
