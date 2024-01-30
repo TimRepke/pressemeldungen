@@ -23,81 +23,6 @@ sstrs = [re.compile(r'klima', flags=re.IGNORECASE),
          re.compile(r'\bklimaschutz\b', flags=re.IGNORECASE),
          re.compile(r'\bumwelt\b', flags=re.IGNORECASE)]
 
-log = []
-
-for file in files:
-    fname = str(file)
-    ministry = REGEX.findall(fname)[0].upper()
-    print(f'Transforming {file}...')
-    with open(file) as f:
-        out_folder = OUTPUT_DIR / ministry
-        out_folder.mkdir(exist_ok=True, parents=True)
-        for li, line in enumerate(f):
-            obj = json.loads(line)
-            out_file = out_folder / f'{ministry}_{li:04}.txt'
-            log.append({
-                'ministry': ministry,
-                'li': li,
-                'raw_date': obj['date'],
-                'descriptor': obj.get('descriptor', 'Pressemitteilung'),
-                'title': obj['title'],
-                'file': str(out_file),
-                'url': obj.get('link'),
-                'src': fname,
-                **{
-                    f'contains_{ss.pattern}': 'x' if ss.search(obj.get('text') or '')
-                                                     or ss.search(obj.get('teaser') or '')
-                                                     or ss.search(obj.get('title') or '') else ''
-                    for ss in sstrs
-                }
-            })
-
-            with open(out_file, 'w') as fout:
-                fout.write((obj.get('link') or '[link missing]') + '\n')
-                fout.write((obj.get('descriptor') or '[descriptor missing]') + '\n')
-                fout.write(', '.join((obj.get('tags') or ['[tags missing]'])) + '\n')
-                fout.write((obj.get('date') or '[date missing]') + '\n')
-                fout.write((obj.get('title') or '[title missing]') + '\n')
-                fout.write((obj.get('teaser') or '[teaser missing]') + '\n')
-                fout.write('----------------\n')
-                fout.write((obj.get('text') or '[text missing]'))
-
-for ministry, file in stock_files:
-    print(f'Transforming {file}...')
-    tmp = pd.read_excel(file)
-    tmp = tmp.replace({np.nan: None})
-    out_folder = OUTPUT_DIR / ministry
-    out_folder.mkdir(exist_ok=True, parents=True)
-    for ai, obj in tmp.iterrows():
-        out_file = out_folder / f'{ministry}_{ai:04}.txt'
-        log.append({
-            'ministry': ministry,
-            'li': li,
-            'raw_date': obj['date'],
-            'descriptor': obj.get('descriptor', 'Pressemitteilung'),
-            'title': obj['title'],
-            'url': obj.get('link'),
-            'file': str(out_file),
-            'src': str(file),
-            **{
-                f'contains_{ss.pattern}': 'x' if ss.search(obj.get('text') or '')
-                                                 or ss.search(obj.get('full_text') or '')
-                                                 or ss.search(obj.get('teaser') or '')
-                                                 or ss.search(obj.get('title') or '') else ''
-                for ss in sstrs
-            }
-        })
-
-        with open(out_file, 'w') as fout:
-            fout.write((obj.get('link') or '[link missing]') + '\n')
-            fout.write((obj.get('descriptor') or '[descriptor missing]') + '\n')
-            fout.write(', '.join((obj.get('tags') or ['[tags missing]'])) + '\n')
-            fout.write((obj.get('date') or '[date missing]') + '\n')
-            fout.write((obj.get('title') or '[title missing]') + '\n')
-            fout.write((obj.get('teaser') or '[teaser missing]') + '\n')
-            fout.write('----------------\n')
-            fout.write((obj.get('full_text') or '[text missing]'))
-
 locale.setlocale(locale.LC_ALL, 'de_DE.UTF-8')
 
 
@@ -132,23 +57,104 @@ DROP = re.compile(r'Stand:'
                   r'|(Montag|Dienstag|Mittwoch|Donnerstag|Freitag|Sonnabend|Samstag|Sonntag)')
 
 
-def transform_dt(x):
+def transform_dt(x) -> date | None:
     if x is None:
         return None
-    dt = DROP.sub('', x.replace(',', '')).strip()
-    for fmt, trans in DT_FORMATS:
-        if fmt.match(dt):
-            return trans(dt)
+    try:
+        dt = DROP.sub('', x.replace(',', '')).strip()
+        for fmt, trans in DT_FORMATS:
+            if fmt.match(dt):
+                return trans(dt)
+    except Exception as e:
+        print(e)
+        print(x)
     return None
 
 
-dates = []
-for obj in log:
-    try:
-        obj['date'] = transform_dt(obj['raw_date'])
-    except Exception as e:
-        print(e)
-        print(obj)
+log = []
+
+for file in files:
+    fname = str(file)
+    ministry = REGEX.findall(fname)[0].upper()
+    print(f'Transforming {file}...')
+    with open(file) as f:
+        out_folder = OUTPUT_DIR / ministry
+        out_folder.mkdir(exist_ok=True, parents=True)
+        for li, line in enumerate(f):
+            obj = json.loads(line)
+            dt = transform_dt(obj['date'])
+            if dt is not None:
+                out_file = out_folder / f'{ministry}_{dt.strftime("%Y-%m-%d")}_{li:04}.txt'
+            else:
+                out_file = out_folder / f'{ministry}-undated-{li:04}.txt'
+            log.append({
+                'ministry': ministry,
+                'li': li,
+                'raw_date': obj['date'],
+                'date': dt,
+                'descriptor': obj.get('descriptor', 'Pressemitteilung'),
+                'title': obj['title'],
+                'file': str(out_file),
+                'url': obj.get('link'),
+                'src': fname,
+                **{
+                    f'contains_{ss.pattern}': 'x' if ss.search(obj.get('text') or '')
+                                                     or ss.search(obj.get('teaser') or '')
+                                                     or ss.search(obj.get('title') or '') else ''
+                    for ss in sstrs
+                }
+            })
+
+            with open(out_file, 'w') as fout:
+                fout.write((obj.get('link') or '[link missing]') + '\n')
+                fout.write((obj.get('descriptor') or '[descriptor missing]') + '\n')
+                fout.write(', '.join((obj.get('tags') or ['[tags missing]'])) + '\n')
+                fout.write((obj.get('date') or '[date missing]') + '\n')
+                fout.write((obj.get('title') or '[title missing]') + '\n')
+                fout.write((obj.get('teaser') or '[teaser missing]') + '\n')
+                fout.write('----------------\n')
+                fout.write((obj.get('text') or '[text missing]'))
+
+for ministry, file in stock_files:
+    print(f'Transforming {file}...')
+    tmp = pd.read_excel(file)
+    tmp = tmp.replace({np.nan: None})
+    out_folder = OUTPUT_DIR / ministry
+    out_folder.mkdir(exist_ok=True, parents=True)
+    for ai, obj in tmp.iterrows():
+        dt = transform_dt(obj.get('date'))
+        if dt is not None:
+            out_file = out_folder / f'{ministry}_{dt.strftime("%Y-%m-%d")}_{li:04}.txt'
+        else:
+            out_file = out_folder / f'{ministry}-undated-{li:04}.txt'
+        log.append({
+            'ministry': ministry,
+            'li': li,
+            'raw_date': obj['date'],
+            'date': dt,
+            'descriptor': obj.get('descriptor', 'Pressemitteilung'),
+            'title': obj['title'],
+            'url': obj.get('link'),
+            'file': str(out_file),
+            'src': str(file),
+            **{
+                f'contains_{ss.pattern}': 'x' if ss.search(obj.get('text') or '')
+                                                 or ss.search(obj.get('full_text') or '')
+                                                 or ss.search(obj.get('teaser') or '')
+                                                 or ss.search(obj.get('title') or '') else ''
+                for ss in sstrs
+            }
+        })
+
+        with open(out_file, 'w') as fout:
+            fout.write((obj.get('link') or '[link missing]') + '\n')
+            fout.write((obj.get('descriptor') or '[descriptor missing]') + '\n')
+            fout.write(', '.join((obj.get('tags') or ['[tags missing]'])) + '\n')
+            fout.write((obj.get('date') or '[date missing]') + '\n')
+            fout.write((obj.get('title') or '[title missing]') + '\n')
+            fout.write((obj.get('teaser') or '[teaser missing]') + '\n')
+            fout.write('----------------\n')
+            fout.write((obj.get('full_text') or '[text missing]'))
 
 df = pd.DataFrame(log)
 df.to_excel(OUTPUT_DIR / 'pressemeldungen.xlsx')
