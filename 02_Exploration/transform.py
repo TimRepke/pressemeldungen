@@ -14,7 +14,7 @@ stock_files = [
     ('BMDV_PDF', Path('../data/BMDV/BMDV_manual_2019-2021.xlsx'))
 ]
 
-OUTPUT_DIR = Path('../data/texts')
+OUTPUT_DIR = Path('../data/texts_all')
 REGEX = re.compile(r'articles_(.+)\.jsonl')
 
 sstrs = [re.compile(r'klima', flags=re.IGNORECASE),

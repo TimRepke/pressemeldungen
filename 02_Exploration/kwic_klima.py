@@ -1,6 +1,5 @@
 import locale
 import re
-from datetime import date, datetime
 from pathlib import Path
 import json
 from typing import Iterable
@@ -15,7 +14,7 @@ stock_files = [
     ('BMDV_PDF', Path('../data/BMDV/BMDV_manual_2019-2021.xlsx'))
 ]
 
-OUTPUT_DIR = Path('../data/texts')
+OUTPUT_DIR = Path('../data/texts_klima')
 REGEX = re.compile(r'articles_(.+)\.jsonl')
 
 sstrs = [re.compile(r'klima', flags=re.IGNORECASE),
