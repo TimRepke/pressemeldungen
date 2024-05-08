@@ -104,7 +104,8 @@ for file in files:
                     out_file = out_folder / f'{ministry}-undated-{li:04}.txt'
 
                 txt = BMWK.sub('WuKs', txt)
-                if 'klima' in txt.lower() and dt and dt >= date(2021, 10, 26):
+                if dt and dt >= date(2021, 10, 26):
+
                     for l, c, r in kwic(txt, sstrs[0], 60):
                         # print(f'{l} ..|.. {c} ..|.. {r}      -> {li} in {file}')
                         kwic_log.append({
@@ -126,9 +127,9 @@ for file in files:
                         'url': obj.get('link'),
                         'src': fname,
                         **{
-                            f'contains_{ss.pattern}': 'x' if ss.search(obj.get('text') or '')
-                                                             or ss.search(obj.get('teaser') or '')
-                                                             or ss.search(obj.get('title') or '') else ''
+                            f'contains_{ss.pattern}': '1' if ss.search(obj.get('text') or '0')
+                                                             or ss.search(obj.get('teaser') or '0')
+                                                             or ss.search(obj.get('title') or '0') else '0'
                             for ss in sstrs
                         }
                     })
@@ -149,7 +150,7 @@ for ministry, file in stock_files:
     tmp = tmp.replace({np.nan: None})
     out_folder = OUTPUT_DIR / ministry
     out_folder.mkdir(exist_ok=True, parents=True)
-    for ai, obj in tmp.iterrows():
+    for li, obj in tmp.iterrows():
         txt = obj.get('full_text')
         if txt:
             dt = transform_dt(obj.get('date'))
@@ -158,7 +159,7 @@ for ministry, file in stock_files:
             else:
                 out_file = out_folder / f'{ministry}-undated-{li:04}.txt'
             txt = BMWK.sub('WuKs', txt)
-            if 'klima' in txt.lower() and dt and dt >= date(2021, 10, 26):
+            if dt and dt >= date(2021, 10, 26):
 
                 for l, c, r in kwic(txt, sstrs[0], 60):
                     kwic_log.append({
@@ -180,10 +181,10 @@ for ministry, file in stock_files:
                     'file': str(out_file),
                     'src': str(file),
                     **{
-                        f'contains_{ss.pattern}': 'x' if ss.search(obj.get('text') or '')
-                                                         or ss.search(obj.get('full_text') or '')
-                                                         or ss.search(obj.get('teaser') or '')
-                                                         or ss.search(obj.get('title') or '') else ''
+                        f'contains_{ss.pattern}': '1' if ss.search(obj.get('text') or '0')
+                                                         or ss.search(obj.get('full_text') or '0')
+                                                         or ss.search(obj.get('teaser') or '0')
+                                                         or ss.search(obj.get('title') or '0') else '0'
                         for ss in sstrs
                     }
                 })
@@ -199,6 +200,6 @@ for ministry, file in stock_files:
                     fout.write((obj.get('full_text') or '[text missing]'))
 
 df = pd.DataFrame(log)
-df.to_excel(OUTPUT_DIR / 'pressemeldungen_klima.xlsx')
+df.to_excel(OUTPUT_DIR / 'pressemeldungen_all.xlsx')
 
-pd.DataFrame(kwic_log).to_excel(OUTPUT_DIR / 'kwic_klima.xlsx')
+pd.DataFrame(kwic_log).to_excel(OUTPUT_DIR / 'kwic_all.xlsx')
