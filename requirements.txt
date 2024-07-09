@@ -1,7 +1,7 @@
-httpx[http2]==0.26.0
-pydantic==2.5.3
-scrapy==2.11.0
-pandas==2.2.0
+httpx[http2]==1.0.0b0
+pydantic==2.8.2
+scrapy==2.11.2
+pandas==2.2.2
 jupyter==1.0.0
-matplotlib==3.8.2
-openpyxl==3.1.2
+matplotlib==3.9.1
+openpyxl==3.2.0b1
